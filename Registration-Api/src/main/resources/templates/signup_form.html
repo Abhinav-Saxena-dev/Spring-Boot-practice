@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Registration</title>
+</head>
+<body>
+	<h1>User Registration - SignUp</h1>
+	<br>
+	<form th:action="@{/process_register}" method = "post" th:object = "${user}"> <!-- THis user is the key of model.addAttribute that we have defined in the model of this files controller  -->
+	 <label>Email </label>
+	 <input type = "email" th:field = "*{email}" required><br>
+	 <label>Password </label>
+	 <input type = "password" th:field = "*{password}" required><br>
+	 <label>First Name </label>
+	 <input type = "text" th:field = "*{firstName}" required><br>
+	 <label>Last Name </label>
+	 <input type = "text" th:field = "*{lastName}" required><br>
+	 <input type = "submit" value="Submit">
+	</form>
+</body>
+</html>
