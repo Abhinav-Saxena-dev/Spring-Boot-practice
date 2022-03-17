@@ -31,4 +31,9 @@ public class UserController {
 		repo.save(user);
 		return "register_successful";
 	}
+	
+	@GetMapping("/list_users")
+	public String viewUsersList() {
+		return "users";
+	}
 }
