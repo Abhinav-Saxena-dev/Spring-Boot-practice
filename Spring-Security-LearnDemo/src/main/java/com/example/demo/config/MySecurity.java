@@ -18,6 +18,7 @@ public class MySecurity extends WebSecurityConfigurerAdapter {
 		
 		http
 			.authorizeRequests()
+			.antMatchers("/public/**").permitAll()
 			.anyRequest()
 			.authenticated()
 			.and()
