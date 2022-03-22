@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -17,12 +18,21 @@ public class MySecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http
+			.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+			.and()
 			.authorizeRequests()
-			.antMatchers("/public/**").permitAll()
+			.antMatchers("/signin").permitAll()
+			.antMatchers("/public/**").hasRole("NORMAL")
+			.antMatchers("/users/**").hasRole("ADMIN")
 			.anyRequest()
 			.authenticated()
 			.and()
-			.httpBasic();     // WE GET THE LOGIN FORM IN THE POPUP. IN THE BASIC AUTHORIZATION WE HAVE TO PASS THE PASSWORD AND USERNAME WITH EVERY REQUEST, DUE TO THIS THERE IS NO LOGGIN
+			.formLogin()
+			.loginPage("/signin")
+			.loginProcessingUrl("/doLogin")
+			.defaultSuccessUrl("/users/")
+		;
+			//.httpBasic();     // WE GET THE LOGIN FORM IN THE POPUP. IN THE BASIC AUTHORIZATION WE HAVE TO PASS THE PASSWORD AND USERNAME WITH EVERY REQUEST, DUE TO THIS THERE IS NO LOGGIN
 	}						  // OUT IN THIS TYPE OF AUTHENTICATION.
 
 	@Override
