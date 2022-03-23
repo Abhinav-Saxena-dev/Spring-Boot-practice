@@ -1,4 +1,4 @@
-package com.example.demo.Services;
+	package com.example.demo.Services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +13,8 @@ public class UserService {
 	List<User> list = new ArrayList<User>();
 
 	public UserService() {
-		list.add(new User("abc", "abc", "abc@xyz.com"));
-		list.add(new User("rst", "rst", "rst@xyz.com"));
+		list.add(new User("abc", "abc", "abc@xyz.com", "NORMAL"));
+		list.add(new User("rst", "rst", "rst@xyz.com", "NORMAL"));	;
 	}
 
 	public List<User> getAllUsers() {
