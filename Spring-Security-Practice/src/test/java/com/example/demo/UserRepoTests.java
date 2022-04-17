@@ -24,7 +24,7 @@ public class UserRepoTests {
 	
 	@Test
 	public void testCreateUser() {
-		User user = new User("princeofpersia@gmail.com", "dastan", "sandsoftime");
+		User user = new User("princeofpersia@gmail.com", "dastan", "sandsoftime", "ROLE_ADMIN");
 		
 		User savedUser = repo.save(user);
 		
@@ -33,4 +33,16 @@ public class UserRepoTests {
 		assertThat(existUser.getUsername()).isEqualTo(savedUser.getUsername());
 	}
 	
+	@Test
+	public void deleteUser() {
+		User user = new User("princeofpersia@gmail.com", "dastan", "sandsoftime", "ROLE_NORMAL");
+		
+		User savedUser = repo.save(user);
+		
+		repo.delete(savedUser);
+		
+		User existUser = entitymanager.find(User.class, savedUser.getId());   // WHYYYYY
+		
+		assertThat(existUser).isNull();
+	}	
 }
