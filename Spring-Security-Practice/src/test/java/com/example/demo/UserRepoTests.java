@@ -8,12 +8,14 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.example.demo.dao.UserRepository;
 import com.example.demo.models.User;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = Replace.NONE)   // ERROR WAS BEING SHOWN WITHOUT THIS LINE. WHYYYY
+@ActiveProfiles("test")
 public class UserRepoTests {
 	
 	@Autowired

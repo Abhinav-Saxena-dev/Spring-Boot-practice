@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		http
 			.authorizeRequests()
 			.antMatchers("/login").permitAll()
-			.antMatchers("/api/public/**").permitAll() // (api/getUsers) is wrong for ant matcher, use (/api/getUsers).	
+			.antMatchers("/api/public/**").hasRole("NORMAL") // (api/----) is wrong for ant matcher, use (/api/----).	
 			.anyRequest()
 			.authenticated()
 			.and()
