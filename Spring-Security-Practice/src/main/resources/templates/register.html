@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang = "en" xmlns:th = "http://www.thymeleaf.com">
+<head>
+<meta charset="UTF-8">
+<title>Login</title>
+</head>
+<body>
+	<h1>This is login page</h1>
+	<form th:action="@{/registration}" method = "post" th:object = "${user}">
+	
+		<p th:if="${param.success}"> You have Successfully registered :D </p>
+		
+		<label for="Email">Email</label> <br>
+		<input type = "email" th:field = "*{email}" id = "email"> <br>
+		<br>
+		<label for="Password">Password</label> <br>
+		<input type = "password" th:field = "*{password}" id = "password"> <br>
+		<label for="username">Username</label> <br>
+		<input type = "text" th:field = "*{username}" id = "username"> <br>
+		<br>
+		<input type = "submit" value = "submit">
+	</form>
+</body>
+</html>

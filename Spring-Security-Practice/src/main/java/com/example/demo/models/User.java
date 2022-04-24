@@ -1,13 +1,21 @@
 package com.example.demo.models;
 
+import java.util.Collection;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 	
 	@Id
@@ -15,17 +23,29 @@ public class User {
 	int id;
 	
 	String email;
+	
 	String username;
+
 	String password;
-	String role;
+	
+	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinTable(
+			 name = "user_role",
+			 joinColumns = @JoinColumn(
+					 name = "user_id", referencedColumnName = "id"),
+			 inverseJoinColumns = @JoinColumn(
+					 name = "role_id	", referencedColumnName = "id")
+					 )
+	
+	private Collection<Role> roles;
 	
 	public User() {}
 	
-	public User(String email, String username, String password, String role) {
+	public User(String email, String username, String password, Collection<Role> roles) {
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.role = role;
+		this.roles = roles;
 	}
 
 	public int getId() {
@@ -60,11 +80,12 @@ public class User {
 		this.password = password;
 	}
 
-	public String getRole() {
-		return role;
+	public Collection<Role> getRoles() {
+		return roles;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setRoles(Collection<Role> roles) {
+		this.roles = roles;
 	}
+	
 }
